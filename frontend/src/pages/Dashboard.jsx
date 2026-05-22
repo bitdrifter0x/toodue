@@ -61,10 +61,12 @@ function Dashboard() {
   }
 
   const handleLogout = async () => {
-    await fetch(`${import.meta.env.VITE_API_URL}/api/users/logout`, { method: 'POST', credentials: 'include' });
-    navigate('/login');
-    window.location.reload();
-  };
+    await fetch(`${import.meta.env.VITE_API_URL}/api/users/logout`, {
+      method: 'POST',
+      credentials: 'include'
+    });
+    navigate('/login', { replace: true }); // replace prevents going back
+  }
 
   const pending = tasks.filter(t => !t.isCompleted)
   const completed = tasks.filter(t => t.isCompleted)

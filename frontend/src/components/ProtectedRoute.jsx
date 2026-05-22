@@ -1,14 +1,16 @@
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
 const ProtectedRoute = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(null);
+  const location = useLocation();
 
   useEffect(() => {
     const checkAuth = async () => {
       try {
         const res = await fetch(`${import.meta.env.VITE_API_URL}/api/users/verify?t=${Date.now()}`, {
-          credentials: 'include'
+          credentials: 'include',
+          cache: 'no-cache'
         });
         const data = await res.json();
         setIsAuthenticated(data.authenticated);
@@ -18,7 +20,7 @@ const ProtectedRoute = ({ children }) => {
     };
     
     checkAuth();
-  }, []); // Runs once on mount
+  }, [location.pathname]); // Re-run when URL changes
 
   if (isAuthenticated === null) {
     return <div>Loading...</div>;
