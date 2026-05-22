@@ -7,7 +7,7 @@ const ProtectedRoute = ({ children }) => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/users/verify`, {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/users/verify?t=${Date.now()}`, {
           credentials: 'include'
         });
         const data = await res.json();
