@@ -9,7 +9,7 @@ import taskRoutes from './routes/taskRoutes.js' // for task routes
 
 const app = express()
 app.use(cors({
-  origin: 'http://localhost:5173',
+  origin: ['http://localhost:5173', 'https://toodue-frontend.vercel.app'],
   credentials: true
 }))
 
